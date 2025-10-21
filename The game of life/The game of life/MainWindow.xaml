@@ -1,0 +1,67 @@
+﻿<Window x:Class="ConwayGameOfLifeWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ConwayGameOfLifeWPF"
+        mc:Ignorable="d"
+        Title="Conway's Game of Life (WPF) - Analiza Złożoności" 
+        Height="800" Width="1000"
+        Loaded="Window_Loaded"
+        Closing="Window_Closing">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="#FFE0E0E0" BorderBrush="#FFC0C0C0" BorderThickness="0,0,0,1">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Button x:Name="StartButton" Content="Start" Width="80" Margin="2" Click="StartButton_Click"/>
+                    <Button x:Name="StopButton" Content="Stop" Width="80" Margin="2" Click="StopButton_Click"/>
+                    <Button x:Name="StepButton" Content="Krok" Width="80" Margin="2" Click="StepButton_Click"/>
+                    <Button x:Name="ResetButton" Content="Reset (Losowo)" Width="120" Margin="2" Click="ResetButton_Click"/>
+                    <Button x:Name="ClearButton" Content="Wyczyść" Width="80" Margin="2" Click="ClearButton_Click"/>
+
+                    <TextBlock Text="Prędkość:" VerticalAlignment="Center" Margin="10,0,5,0"/>
+                    <Slider x:Name="SpeedSlider" Minimum="10" Maximum="500" Value="20" Width="150"
+                            ValueChanged="SpeedSlider_ValueChanged" ToolTip="Czas między klatkami (ms)"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="5,0,5,5">
+                    <TextBlock Text="Wczytaj wzór:" VerticalAlignment="Center" Margin="2"/>
+                    <ComboBox x:Name="PatternComboBox" Width="200" Margin="5,0"/>
+                    <Button x:Name="LoadPatternButton" Content="Wczytaj" Width="80" Margin="2" Click="LoadPatternButton_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <Image x:Name="GameImage" Grid.Row="1" Stretch="Uniform" Margin="5"
+               RenderOptions.BitmapScalingMode="NearestNeighbor"
+               MouseLeftButtonDown="GameImage_MouseLeftButtonDown"
+               MouseMove="GameImage_MouseMove"/>
+
+        <Grid Grid.Row="2" Background="#FFE0E0E0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Vertical" Margin="10">
+                <TextBlock x:Name="GenerationText" Text="Pokolenie: 0" FontSize="14" FontWeight="Bold"/>
+                <TextBlock x:Name="PopulationText" Text="Populacja: 0" FontSize="14" FontWeight="Bold"/>
+                <TextBlock x:Name="EntropyText" Text="Entropia (2x2): 0.0" FontSize="12"/>
+
+                <TextBlock x:Name="FractalDimensionText" Text="Wymiar (D): 0.0" FontSize="12" ToolTip="Wymiar fraktalny (Box-Counting)"/>
+                <TextBlock x:Name="CycleStatusText" Text="" FontSize="12" FontWeight="Bold" Foreground="#FF007ACC"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="10" HorizontalAlignment="Right">
+                <Button x:Name="StartAnalysisButton" Content="Rozpocznij Analizę (Logowanie)" Width="200" Margin="5" Background="#FFC8E6C9" Click="StartAnalysisButton_Click"/>
+                <Button x:Name="StopAnalysisButton" Content="Zatrzymaj i Zapisz" Width="150" Margin="5" IsEnabled="false" Background="#FFFFCDD2" Click="StopAnalysisButton_Click"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
